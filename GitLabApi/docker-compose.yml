@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  gitlab:
+    image: 'gitlab/gitlab-ee:14.7.2-ee.0'
+    container_name: gitlab
+    restart: always
+    hostname: 'musical-acorn-rxq4p75p43x9gj-80.app.github.dev/'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://musical-acorn-rxq4p75p43x9gj-80.app.github.dev'
+        gitlab_rails['gitlab_shell_ssh_port'] = 8022
+        # Add any other gitlab.rb configuration here, each on its own line
+      TZ: 'Asia/Seoul'
+    ports:
+      - '80:80'
+      - '443:443'
+      - '8022:22'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
